@@ -2,6 +2,7 @@ import pygame
 
 #Test 2 Change variable  
 #jzkfksdjf
+#akeem test
 
 
 # Add undo button 
@@ -277,66 +278,57 @@ screen=pygame.display.set_mode((screen_width,screen_height))
 pygame.display.set_caption("Breakthrough")
 
 #loading image files of each object in the game 
-player_piece=pygame.image.load(".\\Desktop\\Pygame\\black_piece.png") #BLACK piece
-enemy_piece=pygame.image.load(".\\Desktop\\Pygame\\white_piece.png") #WHITE piece 
-#selection=pygame.image.load("selection.png") #red border 
-#legal_move_indicator=pygame.image.load("rsrc/move_indicator.png") #red circle 
+player_piece=pygame.image.load("black_piece.png") #BLACK piece
+enemy_piece=pygame.image.load("white_piece.png") #WHITE piece 
+selection=pygame.image.load("selection.png") #red border 
+legal_move_indicator=pygame.image.load("move_indicator.png") #red circle 
 
-#loads board files
-board_file=".\\Desktop\\Pygame\\board_test2.txt"
-#move_file="../move_list.txt"
+
+#loads board file and move list
+board_file="board_test3.txt"
+move_file="moves_list.txt"
 
 running=True
 moves_gotten=False
 
-# output_file=open("../output.txt", "w")
-# output_file.write("0")
-# output_file.close()
+output_file=open("../output.txt", "w")
+output_file.write("0")
+output_file.close()
 
-layout,r,c=read_file(board_file) 
-print(r,c)
-for i in range(r): 
-    for j in range(c): 
-        print(layout[i][j],end ="")
-    print("")
-
-moves = get_moves_othello(layout,r,c) 
-print(moves) 
-
-# while running:
-#     layout=read_file(board_file)
-#     drawboard()
-#     drawPieces(layout)
-#     move_list=get_moves(move_file)
-#     for event in pygame.event.get():
-#         if event.type==pygame.QUIT:
-#             running=False
-#         if event.type==pygame.MOUSEBUTTONDOWN:
-#             x,y=pygame.mouse.get_pos()
-#             result, selection_xy=isPiecePresent(x,y)
-#             position=determine_position(x,y)
-#             if result==True:
-#                 determine_position_reverse(position, move_list)
-#                 input_move=position
-#                 move=True
-#                 while move:
-#                     screen.blit(selection, selection_xy)
-#                     pygame.display.update()
-#                     for event in pygame.event.get():
-#                         if event.type==pygame.MOUSEBUTTONDOWN:
-#                             x2,y2=pygame.mouse.get_pos()
-#                             p2=determine_position(x2,y2)
-#                             if position==p2:
-#                                 move=False
-#                             else:
-#                                 input_move+=p2
-#                                 move=False
-#                                 print(input_move)
-#                                 output_file=open("../output.txt", "w")
-#                                 output_file.write(input_move)
-#                                 output_file.close()
+while running:
+    layout,r,c=read_file(board_file)
+    drawboard(8)
+    drawPieces(layout)
+    move_list=get_moves(move_file)
+    for event in pygame.event.get():
+        if event.type==pygame.QUIT:
+            running=False
+        if event.type==pygame.MOUSEBUTTONDOWN:
+            x,y=pygame.mouse.get_pos()
+            result, selection_xy=isPiecePresent(x,y)
+            position=determine_position(x,y)
+            if result==True:
+                determine_position_reverse(position, move_list)
+                input_move=position
+                move=True
+                while move:
+                    screen.blit(selection, selection_xy)
+                    pygame.display.update()
+                    for event in pygame.event.get():
+                        if event.type==pygame.MOUSEBUTTONDOWN:
+                            x2,y2=pygame.mouse.get_pos()
+                            p2=determine_position(x2,y2)
+                            if position==p2:
+                                move=False
+                            else:
+                                input_move+=p2
+                                move=False
+                                print(input_move)
+                                output_file=open("../output.txt", "w")
+                                output_file.write(input_move)
+                                output_file.close()
 
                                 
     
-#     pygame.display.update()
-# #def main_menu()
+    pygame.display.update()
+#def main_menu()
